@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -10,6 +10,9 @@ import Typography from "@mui/material/Typography";
 import { formDataSequence } from "@/utils/constant/formData";
 import InputComponent from "./InputComponent";
 import { Campaign } from "@/lib/types/campaign";
+import { createNewCampaign, getSupportedLanguages, getSupportedVoices } from "@/api/campaign";
+import toast from "react-hot-toast";
+import { checkCampaignFormValidation } from "@/utils/functions/validation";
 
 const steps = new Array(formDataSequence.length);
 
@@ -27,8 +30,52 @@ const FormStepper = () => {
     firstLine: "",
     tone: "",
     postCallAnalysis: false,
-    // postCallAnalysisSchema: {},
+    postCallAnalysisSchema: {},
   });
+  const [languages, setLanguages] = useState<string[]>([]);
+  const [voices, setVoices] = useState<string[]>([]);
+  const fetchedLangData = useRef(false);
+  const fetchedVoiceData = useRef(false);
+
+  useEffect(() => {
+    const fetchLanguages = async () => {
+      const languages = await getSupportedLanguages();
+      if (!languages?.status) {
+        toast.error("Failed to fetch languages");
+      } else {
+        console.log(languages?.result?.languages);
+        setLanguages(languages?.result?.languages);
+      }
+    };
+    if (!fetchedLangData.current) {
+      fetchLanguages();
+      fetchedLangData.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchVoices = async () => {
+      const voices = await getSupportedVoices();
+      if (!voices?.status) {
+        toast.error("Failed to fetch voices");
+      } else {
+        console.log(voices?.result?.voice.map((voice: any) => voice.name));
+        setVoices(voices?.result?.voice.map((voice: any) => voice.name));
+      }
+    };
+    if (!fetchedVoiceData.current) {
+      fetchVoices();
+      fetchedVoiceData.current = true;
+    }
+  }, []);
+
+  const selectOptions = (name: string) => {
+    if (name === "language" && languages.length > 0) {
+      return languages;
+    } else if (name === "voice" && voices.length > 0) {
+      return voices;
+    } else return [];
+  };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -65,7 +112,18 @@ const FormStepper = () => {
     setActiveStep(0);
   };
 
-  const createCampaign = () => {
+  const createCampaign = async () => {
+    if (!checkCampaignFormValidation(formData)) {
+      toast.error("All fields are required");
+      return;
+    }
+    const response = await createNewCampaign(formData);
+    console.log(response);
+    if (!response?.status) {
+      toast.error(response?.detail);
+      return
+    }
+    toast.success("Created campaign");
     console.log("Creating campaign", formData);
   };
 
@@ -118,7 +176,7 @@ const FormStepper = () => {
                 }
                 type={input?.type}
                 placeholder={input?.placeholder}
-                options={[]}
+                options={selectOptions(input?.name)}
               />
             );
           })}

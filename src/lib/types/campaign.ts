@@ -9,9 +9,7 @@ export interface Campaign {
     calendar: string;
     firstLine: string;
     tone: string;
-    maxCallTimeout?: number;
-    inactiveCallTimeout?: number;
-    postCallAnalysis: boolean;
+    postCallAnalysis?: boolean;
     postCallAnalysisSchema?: object;
 }
 

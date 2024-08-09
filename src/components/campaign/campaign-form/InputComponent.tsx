@@ -51,7 +51,7 @@ const InputComponent: React.FC<InputProps> = ({
           placeholder={placeholder}
           onChange={onChange}
           className="border border-gray-300 p-2 rounded w-full text-black"
-          rows={5} // You can adjust the number of rows as needed
+          rows={10} 
         />
       )}
 
