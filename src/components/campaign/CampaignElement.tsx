@@ -1,10 +1,11 @@
 "use client"
 
-import React from "react";
+import React, { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { Campaign } from "@/lib/types/campaign";
+import ViewCampaignModal from "./ViewCampaignModal";
 
 type CampaignElementProps = {
   id: string;
@@ -12,9 +13,14 @@ type CampaignElementProps = {
 };
 
 const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
+  const [openModal, setOpenModal] = useState(false);
   const onView = () => {
+    setOpenModal(true);
     console.log("Viewing campaign", id);
   };
+
+  const handleCloseView = () => setOpenModal(false);
+  
 
   const onCall = () => {
     console.log("Calling campaign", id);
@@ -53,6 +59,7 @@ const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
           <span>delete</span>
         </button>
       </div>
+      <ViewCampaignModal openModal={openModal} handleClose={handleCloseView} campaign={campaign} campaignId={id}/>
     </div>
   );
 };
