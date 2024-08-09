@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import { FaEye } from "react-icons/fa";
@@ -6,6 +6,7 @@ import { BiSolidPhoneCall } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { Campaign } from "@/lib/types/campaign";
 import ViewCampaignModal from "./ViewCampaignModal";
+import CallMakingModal from "./calling-modal/CallMakingModal";
 
 type CampaignElementProps = {
   id: string;
@@ -13,18 +14,20 @@ type CampaignElementProps = {
 };
 
 const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openViewModal, setOpenViewModal] = useState(false);
+  const [openCallModal, setOpenCallModal] = useState(false);
+  
   const onView = () => {
-    setOpenModal(true);
+    setOpenViewModal(true);
     console.log("Viewing campaign", id);
   };
-
-  const handleCloseView = () => setOpenModal(false);
-  
+  const handleCloseView = () => setOpenViewModal(false);
 
   const onCall = () => {
+    setOpenCallModal(true);
     console.log("Calling campaign", id);
   };
+  const handleCloseCall = () => setOpenCallModal(false);
 
   const onDelete = () => {
     console.log("Deleting campaign", id);
@@ -59,7 +62,17 @@ const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
           <span>delete</span>
         </button>
       </div>
-      <ViewCampaignModal openModal={openModal} handleClose={handleCloseView} campaign={campaign} campaignId={id}/>
+      <ViewCampaignModal
+        openModal={openViewModal}
+        handleClose={handleCloseView}
+        campaign={campaign}
+        campaignId={id}
+      />
+      <CallMakingModal
+        openModal={openCallModal}
+        handleClose={handleCloseCall}
+        campaignId={id}
+      />
     </div>
   );
 };

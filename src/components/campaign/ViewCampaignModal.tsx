@@ -1,7 +1,7 @@
 import { Campaign } from "@/lib/types/campaign";
 import React from "react";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { getCampaignDetails } from "@/utils/functions/campaignDetails";
 
