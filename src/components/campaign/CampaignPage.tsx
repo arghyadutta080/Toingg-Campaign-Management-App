@@ -15,10 +15,7 @@ const CampaignPage = () => {
   const [loading, setLoading] = useState(true);
   const fetchedData = useRef(false);
 
-  // Function to handle opening the modal
   const handleOpen = () => setOpenModal(true);
-    
-  // Function to handle closing the modal
   const handleClose = () => setOpenModal(false)
 
   useEffect(() => {
@@ -73,7 +70,6 @@ const CampaignPage = () => {
         <CampaignList campaigns={campaigns} />
       )}
       <FormModal openModal={openModal} handleClose={handleClose} />
-      {/* <BackgroundBeams /> */}
     </div>
   );
 };
