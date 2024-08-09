@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { BackgroundBeams } from "../ui/background-beams";
 import { getCampaigns } from "@/api/campaign";
 import CampaignList from "./CampaignList";
 import toast from "react-hot-toast";
