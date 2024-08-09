@@ -13,11 +13,13 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
+  maxHeight: "98vh",
   width: 400,
   bgcolor: "#1D1D1D",
   border: "2px solid #1D1D1D",
   boxShadow: 24,
   p: 4,
+  overflowY: "auto" as "auto",
 };
 
 const FormModal: React.FC<ModalProps> = ({ openModal, handleClose }) => {

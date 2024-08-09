@@ -1,9 +1,10 @@
 "use client";
 
 import { creatCalls } from "@/api/calling";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
+import Papa from "papaparse";
 
 type FormProps = {
   campID: string;
@@ -16,6 +17,8 @@ type CallElement = {
 };
 
 const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
+  const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [calls, setCalls] = useState<CallElement[]>([
     {
       id: 1,
@@ -23,7 +26,48 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
       phoneNumber: "",
     },
   ]);
-  const maxInputs = 5;
+  const maxInputs = 10;
+
+  //   CSV File handling functions
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    selectedFile && setFile(selectedFile);
+  };
+
+  const handleCSVParsing = async (file: File) => {
+    if (file) {
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: async (result) => {
+          const data: CallElement[] = result.data as CallElement[];
+          const newCalls = data.map((call: CallElement, index) => ({
+            id: index + 1,
+            name: call.name,
+            phoneNumber: call.phoneNumber,
+          }));
+          setCalls(newCalls);
+        },
+        error: (error) => {
+          console.log(error);
+          toast.error("Failed to parse the CSV file.");
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (file) {
+      handleCSVParsing(file);
+    }
+  }, [file]);
+
+  //  Handle Call making Input-fields
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
     const { name, value } = e.target;
@@ -48,11 +92,15 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
 
   const makeCall = async () => {
     calls.map(async (call) => {
-      if (call.name === "" || call.phoneNumber === "" || call.phoneNumber.length !== 10) {
+      if (
+        call.name === "" ||
+        call.phoneNumber === "" ||
+        call.phoneNumber.length !== 10
+      ) {
         toast.error("Please fill all the fields properly.");
-      
-    } else {
-        const response = await creatCalls({     // Make the call
+      } else {
+        const response = await creatCalls({
+          // Make the call
           name: call.name,
           phoneNumber: call.phoneNumber,
           campID: campID,
@@ -94,6 +142,20 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
         </div>
       ))}
       <div className="flex flex-row justify-between pt-5">
+        <input
+          type="file"
+          accept=".csv"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+        />
+        <button
+          type="button"
+          onClick={handleButtonClick}
+          className="p-2 bg-blue-500 text-white rounded cursor-pointer"
+        >
+          Upload CSV File
+        </button>
         <button
           type="button"
           onClick={addInput}
