@@ -6,39 +6,56 @@ import { getCampaigns } from "@/api/campaign";
 import CampaignList from "./CampaignList";
 import toast from "react-hot-toast";
 import ReactLoading from "react-loading";
+import { IoMdAddCircle } from "react-icons/io";
+import FormModal from "./campaign-form/FormModal";
 
 const CampaignPage = () => {
   const [campaigns, setCampaigns] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState(true);
   const fetchedData = useRef(false);
 
-  const [loading, setLoading] = useState(true);
+  // Function to handle opening the modal
+  const handleOpen = () => setOpenModal(true);
+    
+  // Function to handle closing the modal
+  const handleClose = () => setOpenModal(false)
 
   useEffect(() => {
     const getCampaignData = async () => {
-      const data = await getCampaigns();
-      if (!data?.status) {
-        toast.error(data?.message);
+      try {
+        const data = await getCampaigns();
+        if (!data?.status) {
+          toast.error(data?.detail);
+          setLoading(false);
+        } else {
+          setCampaigns(data?.result);
+          setLoading(false);
+        }
+      } catch (error) {
+        toast.error("Failed to fetch campaigns.");
         setLoading(false);
       }
-      console.log(data?.result);
-      setCampaigns(data?.result);
-      setLoading(false);
     };
+
     if (!fetchedData.current) {
       getCampaignData();
       fetchedData.current = true;
     }
   }, []);
 
-  console.log(typeof campaigns);
-
   return (
     <div>
-      <h1 className="relative z-10 text-lg md:text-5xl mx-10 my-5 bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-blue-300  text-left font-sans font-bold">
-        Manage Campaigns
-      </h1>
-      <p></p>
-      <p className="text-neutral-300 max-w-full mx-10 my-2 text-lg text-left relative z-10">
+      <div className="flex flex-row justify-between items-center mx-10 my-5 z-50">
+        <h1 className=" text-3xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-blue-300 text-left font-sans font-bold">
+          Manage Campaigns
+        </h1>
+        <div onClick={handleOpen} className="text-white cursor-pointer">
+          <IoMdAddCircle size={40} color="#93c5fd" />
+        </div>
+      </div>
+
+      <p className="text-neutral-300 max-w-full mx-10 my-2 text-lg text-left">
         This page is for managing your campaigns. You can create, modify, view,
         and update your campaigns here.
       </p>
@@ -55,8 +72,8 @@ const CampaignPage = () => {
       ) : (
         <CampaignList campaigns={campaigns} />
       )}
-
-      <BackgroundBeams />
+      <FormModal openModal={openModal} handleClose={handleClose} />
+      {/* <BackgroundBeams /> */}
     </div>
   );
 };

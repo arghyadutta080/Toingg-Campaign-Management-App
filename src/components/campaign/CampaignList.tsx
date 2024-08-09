@@ -16,7 +16,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ campaigns }) => {
           Action
         </span>
       </div>
-      {Object.entries(campaigns).map(([key, value]) => {
+      {campaigns && Object.entries(campaigns).map(([key, value]) => {
         return <CampaignElement key={key} id={key} campaign={value} />;
       })}
     </div>
