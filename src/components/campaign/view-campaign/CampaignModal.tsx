@@ -22,7 +22,7 @@ const style = {
   bgcolor: "#1D1D1D",
   border: "2px solid #1D1D1D",
   boxShadow: 24,
-  p: 4,
+  p: 2,
   overflowY: "auto" as "auto",
 };
 

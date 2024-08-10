@@ -115,9 +115,12 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
   };
 
   return (
-    <div className="flex flex-col w-56 space-y-3">
+    <div className="flex flex-col md:min-w-[450px] space-y-3">
       {calls.map((call, index) => (
-        <div key={index} className="flex flex-col w-full space-y-2 md:space-y-0 md:flex-row items-center md:space-x-2">
+        <div
+          key={index}
+          className="flex flex-col w-full space-y-2 md:space-y-0 md:flex-row items-center md:space-x-2"
+        >
           <input
             type="text"
             name="name"
@@ -141,7 +144,7 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
           )}
         </div>
       ))}
-      <div className="flex flex-col space-y-2 md:space-y-2 md:flex-row justify-between pt-5">
+      <div className="flex flex-col space-y-2 md:space-y-2 md:flex-row justify-between pt-5 pb-3">
         <input
           type="file"
           accept=".csv"

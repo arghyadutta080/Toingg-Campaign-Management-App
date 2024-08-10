@@ -106,7 +106,7 @@ const ModalBody: React.FC<ModalBodyProps> = ({
   return (
     <div>
       {!editMode ? (
-        <>
+        <div className="md:min-w-[450px]">
           <h1 className="text-2xl md:text-4xl mb-3 text-center font-bold">
             Campaign Details
           </h1>
@@ -122,9 +122,9 @@ const ModalBody: React.FC<ModalBodyProps> = ({
               </div>
             ))}
           </div>
-        </>
+        </div>
       ) : (
-        <>
+        <div className="md:min-w-[450px]">
           <h1 className="text-2xl md:text-4xl text-center font-bold">
             Edit Details
           </h1>
@@ -141,7 +141,7 @@ const ModalBody: React.FC<ModalBodyProps> = ({
               />
             ))}
           </div>
-        </>
+        </div>
       )}
       <div className="w-full flex flex-row justify-between">
         {editMode ? (

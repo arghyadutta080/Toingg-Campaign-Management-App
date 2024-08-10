@@ -89,7 +89,7 @@ const FormStepper = () => {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <div className="md:min-w-[450px]">
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
@@ -161,7 +161,7 @@ const FormStepper = () => {
           </Box>
         </React.Fragment>
       )}
-    </Box>
+    </div>
   );
 };
 
