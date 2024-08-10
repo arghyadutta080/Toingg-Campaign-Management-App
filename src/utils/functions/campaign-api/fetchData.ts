@@ -6,7 +6,6 @@ export const fetchLanguages = async (setLanguages: React.Dispatch<React.SetState
     if (!languages?.status) {
         toast.error("Failed to fetch languages");
     } else {
-        console.log(languages?.result?.languages);
         setLanguages(languages?.result?.languages);
     }
 };
@@ -16,7 +15,6 @@ export const fetchVoices = async (setVoices: React.Dispatch<React.SetStateAction
     if (!voices?.status) {
         toast.error("Failed to fetch voices");
     } else {
-        console.log(voices?.result?.voice.map((voice: any) => voice.name));
         setVoices(voices?.result?.voice.map((voice: any) => voice.name));
     }
 };

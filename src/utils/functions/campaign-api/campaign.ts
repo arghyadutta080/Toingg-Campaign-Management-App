@@ -5,7 +5,7 @@ import { checkCampaignFormValidation } from "../validation";
 
 export const createCampaign = async (formData: Campaign) => {
     if (!checkCampaignFormValidation(formData)) {
-        toast.error("All fields are required");
+        toast.error("Fill up all fields with properly");
         return;
     }
     const response = await createNewCampaign(formData);
@@ -15,7 +15,6 @@ export const createCampaign = async (formData: Campaign) => {
         return;
     }
     toast.success("Created campaign");
-    console.log("Creating campaign", formData);
 };
 
 export const updateCampaignData = async (campId: string, campaignDetails: EditCampaign[]) => {

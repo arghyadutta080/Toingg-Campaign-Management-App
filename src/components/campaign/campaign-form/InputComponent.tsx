@@ -96,48 +96,6 @@ const InputComponent: React.FC<InputProps> = ({
           />
         </div>
       )}
-
-      {/* Object Key-Value Pair Input (Conditional on Checkbox) */}
-      {/* {type === "keyValue" && typeof value === "object" && (
-        <div>
-          {Object.entries(value).map(([key, val], index) => (
-            <div key={index} className="flex items-center mb-2">
-              <input
-                type="text"
-                placeholder="Key"
-                value={key}
-                onChange={(e) =>
-                  onChange({
-                    ...e,
-                    target: {
-                      ...e.target,
-                      value: { ...value, [e.target.value]: val },
-                      name: `${name}[${index}]`,
-                    },
-                  })
-                }
-                className="border border-gray-300 p-2 rounded w-1/2 text-black mr-2"
-              />
-              <input
-                type="text"
-                placeholder="Value"
-                value={val}
-                onChange={(e) =>
-                  onChange({
-                    ...e,
-                    target: {
-                      ...e.target,
-                      value: { ...value, [key]: e.target.value },
-                      name: `${name}[${index}]`,
-                    },
-                  })
-                }
-                className="border border-gray-300 p-2 rounded w-1/2 text-black"
-              />
-            </div>
-          ))}
-        </div>
-      )} */}
     </div>
   );
 };

@@ -54,7 +54,7 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
           setCalls(newCalls);
         },
         error: (error) => {
-          console.log(error);
+          // console.log(error);
           toast.error("Failed to parse the CSV file.");
         },
       });

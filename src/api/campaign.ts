@@ -7,10 +7,8 @@ export const getCampaigns = async () => {
         const response = await APIinstance.get(
             'get_campaigns'
         )
-        console.log(response?.data)
         return response?.data;
     } catch (error) {
-        console.log(error);
         return catchErrorFunc(error)
     }
 }
@@ -20,10 +18,8 @@ export const getSupportedLanguages = async () => {
         const response = await APIinstance.get(
             'get_supported_languages'
         )
-        console.log(response?.data)
         return response?.data;
     } catch (error) {
-        console.log(error);
         return catchErrorFunc(error)
     }
 }
@@ -33,10 +29,8 @@ export const getSupportedVoices = async () => {
         const response = await APIinstance.get(
             'get_supported_voices'
         )
-        console.log(response?.data)
         return response?.data;
     } catch (error) {
-        console.log(error);
         return catchErrorFunc(error)
     }
 }
@@ -48,10 +42,8 @@ export const createNewCampaign = async (data: Campaign) => {
             'create_campaign',
             data
         )
-        console.log(response?.data)
         return response?.data;
     } catch (error) {
-        console.log(error);
         return catchErrorFunc(error)
     }
 }
@@ -63,10 +55,8 @@ export const updateCampaign = async (campaignModelData: Campaign | {}, campId: s
             'update_campaign',
             { campaignModelData, campId }
         )
-        console.log(response?.data)
         return response?.data;
     } catch (error) {
-        console.log(error);
         return catchErrorFunc(error)
     }
 }

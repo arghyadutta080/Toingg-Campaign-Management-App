@@ -12,13 +12,11 @@ export const formDataSequence: FormField[][] = [
             label: "Select Voice",
             type: "select",
             name: "voice",
-            // placeholder: "Select Voice"
         },
         {
             label: "Select Language",
             type: "select",
             name: "language",
-            // placeholder: "Select Language"
         }
     ],
     [

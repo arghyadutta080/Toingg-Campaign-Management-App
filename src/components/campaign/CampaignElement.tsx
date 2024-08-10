@@ -18,16 +18,10 @@ const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openCallModal, setOpenCallModal] = useState(false);
 
-  const onView = () => {
-    setOpenViewModal(true);
-    console.log("Viewing campaign", id);
-  };
+  const onView = () => setOpenViewModal(true);
   const handleCloseView = () => setOpenViewModal(false);
 
-  const onCall = () => {
-    setOpenCallModal(true);
-    console.log("Calling campaign", id);
-  };
+  const onCall = () => setOpenCallModal(true);
   const handleCloseCall = () => setOpenCallModal(false);
 
   const onDelete = () => {
