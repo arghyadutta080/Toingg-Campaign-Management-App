@@ -107,12 +107,12 @@ const ModalBody: React.FC<ModalBodyProps> = ({
     <div>
       {!editMode ? (
         <>
-          <h1 className=" text-4xl mb-3 text-center font-bold">
+          <h1 className="text-2xl md:text-4xl mb-3 text-center font-bold">
             Campaign Details
           </h1>
-          <div className="flex flex-col space-y-3 py-3">
+          <div className="flex flex-col space-y-4 py-3">
             {campaignDetails.map((detail, index) => (
-              <div key={index} className="flex flex-col">
+              <div key={index} className="flex flex-col space-y-1">
                 <span className="text-base font-semibold ">
                   {detail.label || "NA"}:
                 </span>
@@ -125,7 +125,9 @@ const ModalBody: React.FC<ModalBodyProps> = ({
         </>
       ) : (
         <>
-          <h1 className=" text-4xl mb-3 text-center font-bold">Edit Details</h1>
+          <h1 className="text-2xl md:text-4xl text-center font-bold">
+            Edit Details
+          </h1>
           <div className="flex flex-col space-y-3 py-3">
             {campaignDetails.map((input, index) => (
               <InputComponent

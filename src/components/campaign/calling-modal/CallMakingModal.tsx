@@ -15,7 +15,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   maxHeight: "70vh",
-  width: 600,
+  maxWidth: 600,
   bgcolor: "#1D1D1D",
   border: "2px solid #1D1D1D",
   boxShadow: 24,
@@ -36,7 +36,7 @@ const CallMakingModal: React.FC<CallMakingProps> = ({
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <h1 className=" text-4xl mb-3 text-center font-bold">
+        <h1 className="text-2xl md:text-4xl mb-3 text-center font-bold">
           Make a Call
         </h1>
         <CallMakingForm campID={campaignId} />

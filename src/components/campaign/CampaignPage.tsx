@@ -42,8 +42,8 @@ const CampaignPage = () => {
 
   return (
     <div>
-      <div className="flex flex-row justify-between items-center mx-10 my-5 z-50">
-        <h1 className=" text-3xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-blue-300 text-left font-sans font-bold">
+      <div className="flex flex-row justify-between items-center mx-3 my-3 md:mx-10 md:my-5">
+        <h1 className=" text-2xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-blue-300 text-left font-sans font-bold">
           Manage Campaigns
         </h1>
         <div onClick={handleOpen} className="text-white cursor-pointer">
@@ -51,10 +51,10 @@ const CampaignPage = () => {
         </div>
       </div>
 
-      <p className="text-neutral-300 max-w-full mx-10 my-2 text-lg text-left">
+      <h2 className="text-neutral-300 max-w-full mx-3 my-3 md:mx-10 md:my-5 text-sm md:text-lg text-left">
         This page is for managing your campaigns. You can create, modify, view,
         and update your campaigns here.
-      </p>
+      </h2>
       {loading ? (
         <div className="flex justify-center items-center">
           <ReactLoading

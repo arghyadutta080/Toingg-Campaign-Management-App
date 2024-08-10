@@ -18,12 +18,12 @@ const HomePage = () => {
       }}
       className="relative flex flex-col gap-4 items-center justify-center px-4"
     >
-      <div className="text-3xl md:text-7xl font-bold text-white text-center">
+      <h1 className="text-3xl md:text-7xl font-bold text-white text-center">
         Streamline your calls with Toingg
-      </div>
-      <div className="font-extralight text-base md:text-4xl text-neutral-200 py-4">
+      </h1>
+      <h2 className="font-extralight text-base md:text-4xl text-neutral-200 py-4">
         Making automated calls a breeze!
-      </div>
+      </h2>
       <Link
         href="/campaign"
         className="bg-white rounded-full w-fit text-black px-4 py-2"

@@ -30,7 +30,14 @@ const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
 
   return (
     <div className="text-white w-full flex flex-row items-center bg-zinc-900 px-3 py-2 rounded-lg">
-      <span className="w-1/2 text-zinc-300">{campaign?.title}</span>
+      <span className="w-1/2 text-zinc-300 hidden md:block">
+        {campaign?.title}
+      </span>
+      <span className="w-1/2 text-zinc-300 block md:hidden">
+        {campaign?.title.length > 20
+          ? `${campaign?.title.substring(0, 17)}...`
+          : campaign?.title}
+      </span>
       <div className="w-1/2 flex flex-row justify-around text-zinc-300">
         <button
           type="button"
@@ -38,7 +45,7 @@ const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
           onClick={onView}
         >
           <FaEye size={20} />
-          <span>View</span>
+          <span className="hidden md:block">View</span>
         </button>
         <button
           type="button"
@@ -46,7 +53,7 @@ const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
           onClick={onCall}
         >
           <BiSolidPhoneCall size={20} />
-          <span>make a call</span>
+          <span className="hidden md:block">make a call</span>
         </button>
         <button
           type="button"
@@ -54,7 +61,7 @@ const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
           onClick={onDelete}
         >
           <MdDelete size={20} />
-          <span>delete</span>
+          <span className="hidden md:block">delete</span>
         </button>
       </div>
       <ViewCampaignModal

@@ -115,16 +115,16 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
   };
 
   return (
-    <div className="flex flex-col space-y-3">
+    <div className="flex flex-col w-56 space-y-3">
       {calls.map((call, index) => (
-        <div key={index} className="flex flex-row items-center space-x-2">
+        <div key={index} className="flex flex-col w-full space-y-2 md:space-y-0 md:flex-row items-center md:space-x-2">
           <input
             type="text"
             name="name"
             value={call.name}
             placeholder="Name"
             onChange={(e) => handleChange(e, call.id)}
-            className="border border-gray-300 p-2 rounded w-1/2 text-black"
+            className="border border-gray-300 p-2 rounded w-full md:w-1/2 text-black"
           />
           <input
             type="text"
@@ -132,7 +132,7 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
             value={call.phoneNumber}
             placeholder="Phone Number"
             onChange={(e) => handleChange(e, call.id)}
-            className="border border-gray-300 p-2 rounded w-1/2 text-black"
+            className="border border-gray-300 p-2 rounded w-full md:w-1/2 text-black"
           />
           {calls.length > 1 && (
             <button type="button" onClick={() => removeInput(call.id)}>
@@ -141,7 +141,7 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
           )}
         </div>
       ))}
-      <div className="flex flex-row justify-between pt-5">
+      <div className="flex flex-col space-y-2 md:space-y-2 md:flex-row justify-between pt-5">
         <input
           type="file"
           accept=".csv"
@@ -159,14 +159,14 @@ const CallMakingForm: React.FC<FormProps> = ({ campID }) => {
         <button
           type="button"
           onClick={addInput}
-          className=" self-start border-2 border-blue-300 px-3 py-2 rounded-lg font-medium"
+          className="w-full md:w-auto self-start border-2 border-blue-300 px-3 py-2 rounded-lg font-medium"
         >
           Add Call
         </button>
         <button
           type="button"
           onClick={makeCall}
-          className=" self-start border-2 border-blue-300 px-3 py-2 rounded-lg font-medium"
+          className="w-full md:w-auto self-start border-2 border-blue-300 px-3 py-2 rounded-lg font-medium"
         >
           Make Call
         </button>
