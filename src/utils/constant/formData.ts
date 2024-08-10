@@ -23,7 +23,7 @@ export const formDataSequence: FormField[][] = [
     ],
     [
         {
-            label: "Script",
+            label: "Script (minimum 200 character)",
             type: "textarea",
             name: "script",
             placeholder: "Enter Script"
@@ -63,17 +63,17 @@ export const formDataSequence: FormField[][] = [
             placeholder: "Enter Tone"
         }
     ],
-    [
-        {
-            label: "Enable Post Call Analysis",
-            type: "checkbox",
-            name: "postCallAnalysis",
-        }
-        // {
-        //     label: "Post Call Analysis Schema",
-        //     type: "object",
-        //     name: "postCallAnalysisSchema",
-        //     placeholder: "Enter Post Call Analysis Schema"
-        // }
-    ]
+    // [
+    //     {
+    //         label: "Enable Post Call Analysis",
+    //         type: "checkbox",
+    //         name: "postCallAnalysis",
+    //     }
+    //     // {
+    //     //     label: "Post Call Analysis Schema",
+    //     //     type: "object",
+    //     //     name: "postCallAnalysisSchema",
+    //     //     placeholder: "Enter Post Call Analysis Schema"
+    //     // }
+    // ]
 ];

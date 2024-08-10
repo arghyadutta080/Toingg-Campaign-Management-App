@@ -2,10 +2,10 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { getCampaigns } from "@/api/campaign";
-import CampaignList from "./CampaignList";
-import toast from "react-hot-toast";
-import ReactLoading from "react-loading";
 import { IoMdAddCircle } from "react-icons/io";
+import ReactLoading from "react-loading";
+import toast from "react-hot-toast";
+import CampaignList from "./CampaignList";
 import FormModal from "./campaign-form/FormModal";
 
 const CampaignPage = () => {

@@ -8,9 +8,7 @@ type InputProps = {
   value?: string;
   checked?: boolean;
   onChange: (
-    e: ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => void;
   options?: string[];
 };
@@ -23,7 +21,7 @@ const InputComponent: React.FC<InputProps> = ({
   value,
   onChange,
   options,
-  checked
+  checked,
 }) => {
   return (
     <div className="my-4">
@@ -51,7 +49,7 @@ const InputComponent: React.FC<InputProps> = ({
           placeholder={placeholder}
           onChange={onChange}
           className="border border-gray-300 p-2 rounded w-full text-black"
-          rows={10} 
+          rows={10}
         />
       )}
 
@@ -88,9 +86,7 @@ const InputComponent: React.FC<InputProps> = ({
       {/* Checkbox Input */}
       {type === "checkbox" && (
         <div className="flex flex-row justify-start space-x-3 items-center">
-          <label className="block text-gray-400">
-            {label}
-          </label>
+          <label className="block text-gray-400">{label}</label>
           <input
             type="checkbox"
             name={name}

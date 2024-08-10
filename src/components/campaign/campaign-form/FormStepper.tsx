@@ -7,12 +7,15 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { formDataSequence } from "@/utils/constant/formData";
-import InputComponent from "./InputComponent";
 import { Campaign } from "@/lib/types/campaign";
-import { createNewCampaign, getSupportedLanguages, getSupportedVoices } from "@/api/campaign";
-import toast from "react-hot-toast";
-import { checkCampaignFormValidation } from "@/utils/functions/validation";
+import { formDataSequence } from "@/utils/constant/formData";
+import {
+  fetchLanguages,
+  fetchVoices,
+  selectOptions,
+} from "@/utils/functions/campaign-api/fetchData";
+import InputComponent from "./InputComponent";
+import { createCampaign } from "@/utils/functions/campaign-api/campaign";
 
 const steps = new Array(formDataSequence.length);
 
@@ -38,50 +41,23 @@ const FormStepper = () => {
   const fetchedVoiceData = useRef(false);
 
   useEffect(() => {
-    const fetchLanguages = async () => {
-      const languages = await getSupportedLanguages();
-      if (!languages?.status) {
-        toast.error("Failed to fetch languages");
-      } else {
-        console.log(languages?.result?.languages);
-        setLanguages(languages?.result?.languages);
-      }
-    };
     if (!fetchedLangData.current) {
-      fetchLanguages();
+      fetchLanguages(setLanguages);
       fetchedLangData.current = true;
     }
   }, []);
 
   useEffect(() => {
-    const fetchVoices = async () => {
-      const voices = await getSupportedVoices();
-      if (!voices?.status) {
-        toast.error("Failed to fetch voices");
-      } else {
-        console.log(voices?.result?.voice.map((voice: any) => voice.name));
-        setVoices(voices?.result?.voice.map((voice: any) => voice.name));
-      }
-    };
     if (!fetchedVoiceData.current) {
-      fetchVoices();
+      fetchVoices(setVoices);
       fetchedVoiceData.current = true;
     }
   }, []);
-
-  const selectOptions = (name: string) => {
-    if (name === "language" && languages.length > 0) {
-      return languages;
-    } else if (name === "voice" && voices.length > 0) {
-      return voices;
-    } else return [];
-  };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-
     setFormData({
       ...formData,
       [name]: value,
@@ -94,7 +70,7 @@ const FormStepper = () => {
     if (key in formData) {
       return formData[key];
     }
-    return null; // Return null if the key doesn't exist
+    return null;
   };
 
   const handleNext = () => {
@@ -110,21 +86,6 @@ const FormStepper = () => {
 
   const handleReset = () => {
     setActiveStep(0);
-  };
-
-  const createCampaign = async () => {
-    if (!checkCampaignFormValidation(formData)) {
-      toast.error("All fields are required");
-      return;
-    }
-    const response = await createNewCampaign(formData);
-    console.log(response);
-    if (!response?.status) {
-      toast.error(response?.detail);
-      return
-    }
-    toast.success("Created campaign");
-    console.log("Creating campaign", formData);
   };
 
   return (
@@ -164,19 +125,20 @@ const FormStepper = () => {
                 label={input?.label}
                 name={input?.name}
                 value={`${matchKeyWithValue(input?.name)}`}
-                checked={matchKeyWithValue(input?.name) as boolean}
-                onChange={
-                  input?.type === "checkbox"
-                    ? () =>
-                        setFormData({
-                          ...formData,
-                          postCallAnalysis: !matchKeyWithValue(input?.name),
-                        })
-                    : handleChange
-                }
+                // checked={matchKeyWithValue(input?.name) as boolean}
+                // onChange={
+                //   input?.type === "checkbox"
+                //     ? () =>
+                //         setFormData({
+                //           ...formData,
+                //           postCallAnalysis: !matchKeyWithValue(input?.name),
+                //         })
+                //     : handleChange
+                // }
+                onChange={handleChange}
                 type={input?.type}
                 placeholder={input?.placeholder}
-                options={selectOptions(input?.name)}
+                options={selectOptions(input?.name, languages, voices)}
               />
             );
           })}
@@ -192,7 +154,7 @@ const FormStepper = () => {
             <Box sx={{ flex: "1 1 auto" }} />
 
             {activeStep === steps.length - 1 ? (
-              <Button onClick={createCampaign}>Finish</Button>
+              <Button onClick={() => createCampaign(formData)}>Finish</Button>
             ) : (
               <Button onClick={handleNext}>Next</Button>
             )}

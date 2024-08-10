@@ -55,3 +55,18 @@ export const createNewCampaign = async (data: Campaign) => {
         return catchErrorFunc(error)
     }
 }
+
+
+export const updateCampaign = async (campaignModelData: Campaign | {}, campId: string) => {
+    try {
+        const response = await APIinstance.post(
+            'update_campaign',
+            { campaignModelData, campId }
+        )
+        console.log(response?.data)
+        return response?.data;
+    } catch (error) {
+        console.log(error);
+        return catchErrorFunc(error)
+    }
+}

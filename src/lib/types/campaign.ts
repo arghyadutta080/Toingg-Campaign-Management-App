@@ -19,3 +19,10 @@ export interface FormField {
     name: string;
     placeholder?: string;
 };
+
+export interface EditCampaign {
+    value: string | boolean;
+    type: string;
+    name: string;
+    label: string;
+};

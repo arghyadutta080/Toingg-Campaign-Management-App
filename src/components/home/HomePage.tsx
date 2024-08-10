@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { AuroraBackground } from "../ui/aurora-background";
 

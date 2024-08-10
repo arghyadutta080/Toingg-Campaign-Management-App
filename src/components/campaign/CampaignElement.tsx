@@ -5,8 +5,9 @@ import { FaEye } from "react-icons/fa";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { Campaign } from "@/lib/types/campaign";
-import ViewCampaignModal from "./ViewCampaignModal";
+import ViewCampaignModal from "./view-campaign/CampaignModal";
 import CallMakingModal from "./calling-modal/CallMakingModal";
+import toast from "react-hot-toast";
 
 type CampaignElementProps = {
   id: string;
@@ -16,7 +17,7 @@ type CampaignElementProps = {
 const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openCallModal, setOpenCallModal] = useState(false);
-  
+
   const onView = () => {
     setOpenViewModal(true);
     console.log("Viewing campaign", id);
@@ -30,7 +31,7 @@ const CampaignElement: React.FC<CampaignElementProps> = ({ id, campaign }) => {
   const handleCloseCall = () => setOpenCallModal(false);
 
   const onDelete = () => {
-    console.log("Deleting campaign", id);
+    toast.error("No permission to perform this action");
   };
 
   return (
